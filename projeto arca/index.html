@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa ARCA - Prefeitura da Serra</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+    <div class="app-container">
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar bg-white" id="sidebar">
+            <div class="sidebar-header p-4 d-flex align-items-center justify-content-between">
+                <div class="logo d-flex align-items-center gap-2">
+                    <div class="bg-primary rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i data-lucide="paw-print" class="text-white"></i>
+                    </div>
+                    <span class="fw-bold text-primary h5 mb-0">Programa ARCA</span>
+                </div>
+                <button class="btn btn-link p-0 text-dark d-lg-none" id="mobile-close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav px-2 py-3 overflow-y-auto">
+                <ul class="nav flex-column gap-1">
+                    <li class="nav-item" data-page="home">
+                        <a class="nav-link active" href="#">
+                            <i data-lucide="layout-dashboard" class="size-5"></i>
+                            <span>Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="campanhas">
+                        <a class="nav-link" href="#">
+                            <i data-lucide="megaphone" class="size-5"></i>
+                            <span>Campanhas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="vagas">
+                        <a class="nav-link" href="#">
+                            <i data-lucide="calendar-check" class="size-5"></i>
+                            <span>Vagas Disponíveis</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="adocao">
+                        <a class="nav-link" href="#">
+                            <i data-lucide="heart" class="size-5"></i>
+                            <span>Adoção</span>
+                        </a>
+                    </li>
+                    <li class="nav-item divider my-2 mx-4 border-bottom opacity-50"></li>
+                    <li class="nav-item" data-page="cadastro-pet">
+                        <a class="nav-link" href="#">
+                            <i data-lucide="plus-circle" class="size-5"></i>
+                            <span>Cadastrar Animal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="solicitacao">
+                        <a class="nav-link" href="#">
+                            <i data-lucide="file-plus" class="size-5"></i>
+                            <span>Solicitar Castração</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="denuncias">
+                        <a class="nav-link" href="#">
+                            <i data-lucide="alert-circle" class="size-5"></i>
+                            <span>Denúncias</span>
+                        </a>
+                    </li>
+                    <li class="nav-item divider my-2 mx-4 border-bottom opacity-50"></li>
+                    <li class="nav-item" data-page="favoritos">
+                        <a class="nav-link" href="#">
+                            <i data-lucide="star" class="size-5"></i>
+                            <span>Meus Favoritos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="perfil">
+                        <a class="nav-link" href="#">
+                            <i data-lucide="user" class="size-5"></i>
+                            <span>Meu Perfil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item admin-only d-none" data-page="admin">
+                        <a class="nav-link text-danger" href="#">
+                            <i data-lucide="shield" class="size-5"></i>
+                            <span>Painel Admin</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer p-3 border-top mt-auto">
+                <div id="user-profile-sidebar" class="d-flex align-items-center gap-3 p-2 rounded-3 mb-3 bg-light d-none">
+                    <!-- Profile info injected here -->
+                </div>
+                <button id="btn-logout" class="btn btn-outline-danger w-100 d-flex align-items-center justify-content-center gap-2">
+                    <i data-lucide="log-out" class="size-4"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-layout flex-grow-1">
+            <header class="top-header">
+                <div class="header-left d-flex align-items-center gap-3">
+                    <button class="btn btn-link p-0 text-dark d-lg-none" id="mobile-menu-btn">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <h1 id="page-title" class="h5 mb-0 fw-bold text-dark">Início</h1>
+                </div>
+                <div class="header-right d-flex align-items-center gap-2">
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle btn btn-link p-0" id="theme-toggle" title="Alternar Tema">
+                        <i data-lucide="moon" id="theme-icon-dark"></i>
+                        <i data-lucide="sun" id="theme-icon-light" class="d-none"></i>
+                    </button>
+
+                    <div class="dropdown" id="notifications-dropdown">
+                        <button class="btn btn-link p-2 text-muted position-relative" id="notif-btn">
+                            <i data-lucide="bell" class="size-5"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" id="notif-badge" style="margin-top: 10px; margin-left: -5px;">0</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end p-0 shadow-lg border-0 rounded-4 overflow-hidden" style="width: 320px; display: none;" id="notif-list">
+                            <!-- Notifications injected here -->
+                        </div>
+                    </div>
+                    
+                    <div class="vr mx-2 opacity-10"></div>
+
+                    <div id="user-info-header" class="d-flex align-items-center">
+                        <!-- User info injected here -->
+                    </div>
+                </div>
+            </header>
+
+            <section id="content-area" class="content-area p-3 p-md-4">
+                <!-- SPA Content injected here -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="btn btn-teal rounded-circle p-0 shadow-lg" style="width: 48px; height: 48px;" title="Voltar ao topo">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" id="mainModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Título</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="modal-footer" id="modalFooter"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
